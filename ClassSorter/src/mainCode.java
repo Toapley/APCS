@@ -25,7 +25,7 @@ public class mainCode {
 			students.add(roster[i]);
 		}
 		
-		// Create my groups.
+		// Create my groups. (test)
 		for(int i=0; i< numGroups;i++) {
 			l.add(new ArrayList<String>());
 		}
