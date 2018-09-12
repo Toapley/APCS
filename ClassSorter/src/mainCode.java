@@ -2,6 +2,7 @@ import java.util.*;
 
 public class mainCode {
 
+	// hello world
 	public static void main(String[] args) {
 						
 		String[] period1 = {"Trixie", "Susan", "Annika", "Connor", "Hayden", "James", "John", "Jenna", "Shira", "Jarec", "Gavin", "Maggie", "Alyssa", "Harris", "Garrett", "Faraz", "Pranathi", "Brandon", "Ajay", "Casey", "Kevin", "Fiona"};
