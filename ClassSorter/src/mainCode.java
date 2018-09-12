@@ -2,12 +2,11 @@ import java.util.*;
 
 public class mainCode {
 
-	// hello world
 	public static void main(String[] args) {
 						
 		String[] period1 = {"Trixie", "Susan", "Annika", "Connor", "Hayden", "James", "John", "Jenna", "Shira", "Jarec", "Gavin", "Maggie", "Alyssa", "Harris", "Garrett", "Faraz", "Pranathi", "Brandon", "Ajay", "Casey", "Kevin", "Fiona"};
 		String[] period2 = {"Bryce", "Xavier", "Andreea", "Mark", "Tianyi", "Nathan", "Sean", "Ivan", "Sanjana", "Melvin", "Spencer"};
-		String[] period3 = {"Anna", "Dylan", "Jake", "Jaron","Cate","Landon","Koji","Adnan","Michaela","James","Andrey","Trotsky","Sim","Joshua","Ben","Oliver","Morgan","Grant","Kokoa","Calin","Simon","Daniel","David","Cameron","Drew","Caden","Oscar","Grayson","Afrah", "Nate", "Sophia"};
+		String[] period3 = {"Anna", "Dylan", "Jake", "Jaron","Cate","Landon","Koji","Adnan","Michaela","James","Andrey","Trotsky","Sim","Joshua","Oliver","Morgan","Grant","Kokoa","Calin","Simon","Daniel","David","Cameron","Drew","Caden","Oscar","Grayson","Afrah", "Nate", "Sophia"};
 		String[] period4 = {"Aidan A", "Tyler", "Terence", "Sadie", "Adrian", "Mitchell", "Natalie", "Taylor", "Thomas", "John", "Landon", "Ann", "Luc", "Dovovan H", "Kenny", "Julian", "Sonya", "Kelson", "Nikita", "Emily", "Donovan L", "Mauricio", "Dora", "Danny", "Aiden S", "Harrison", "Gloria", "Indigo", "Kiara", "Amara", "Ayden R"};
 		sortClass(period4,1);	
 	}
@@ -26,7 +25,7 @@ public class mainCode {
 			students.add(roster[i]);
 		}
 		
-		// Create my groups. (test) s
+		// Create my groups.
 		for(int i=0; i< numGroups;i++) {
 			l.add(new ArrayList<String>());
 		}
