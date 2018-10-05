@@ -6,7 +6,8 @@ public class Figures {
 	/* TODO: Use procedural decomposition to create structure and
 	 * eliminate redundancy   
 	 */
-	// Test 789
+	// Test 1234
+	// Either one is fine with me...
 	public static void main(String[] args) {
 		System.out.println("  ______");
 		// Test 10
