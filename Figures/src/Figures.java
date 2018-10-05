@@ -1,4 +1,4 @@
-// GOOD JOB SIR! 
+// GOOD JOB SIR!  It's certainly a good day!
 // Todd figure this out!
 // Test 5
 public class Figures {
