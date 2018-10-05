@@ -74,6 +74,7 @@ public class BitBucketHelper {
 		
 		PrintWriter  sw = new PrintWriter(checkinFile);
 		
+		
 		// Batch file is expected to be run at the parent root of all the students repos
 		sw.println("if [%1]==[] goto usage");
 		

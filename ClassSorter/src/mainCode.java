@@ -10,6 +10,7 @@ public class mainCode {
 		String[] period4 = {"Aidan A", "Tyler", "Terence", "Sadie", "Adrian", "Mitchell", "Natalie", "Taylor", "Thomas", "John", "Landon", "Ann", "Luc", "Dovovan H", "Kenny", "Julian", "Sonya", "Kelson", "Nikita", "Emily", "Donovan L", "Mauricio", "Dora", "Danny", "Aiden S", "Harrison", "Gloria", "Indigo", "Kiara", "Amara", "Ayden R"};
 		sortClass(period4,2);	
 		
+		
 	}
 	
 	// Given a list of people in the class and the size of groups desired
