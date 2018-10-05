@@ -1,5 +1,7 @@
-// GOOD JOB SIR!  It's certainly a good day!
+// Even better job sir
+//GOOD JOB SIR!  It's certainly a good day!
 // Todd figure this out!
+// This is on 2nd line, yes? 
 // Test 5
 public class Figures {
 	
