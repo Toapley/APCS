@@ -1,3 +1,4 @@
+// Test 5
 public class Figures {
 	
 	/* TODO: Use procedural decomposition to create structure and
