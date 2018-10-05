@@ -12,6 +12,9 @@ public class Figures {
 		System.out.println("  ______");
 		// Test 11
 		// Test 11
+		// Test 10 
+		// Test 10 
+		// Test 10 
 		System.out.println(" /      \\");
 		System.out.println("/        \\");
 		System.out.println("\\        /");
