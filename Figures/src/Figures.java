@@ -1,5 +1,6 @@
 public class Figures {
 	
+	// TEst 6
 	/* TODO: Use procedural decomposition to create structure and
 	 * eliminate redundancy   
 	 */
