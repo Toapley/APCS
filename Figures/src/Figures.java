@@ -2,9 +2,11 @@
 // Test 5
 public class Figures {
 	
+	// TEst 6
 	/* TODO: Use procedural decomposition to create structure and
 	 * eliminate redundancy   
 	 */
+	// Test 7
 	public static void main(String[] args) {
 		System.out.println("  ______");
 		System.out.println(" /      \\");
