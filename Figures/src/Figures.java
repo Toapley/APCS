@@ -1,3 +1,4 @@
+// Test 5
 public class Figures {
 	
 	// TEst 6
