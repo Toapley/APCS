@@ -7,6 +7,7 @@ public class Figures {
 	 * eliminate redundancy   
 	 */
 	// Test 1234
+	// Either one is fine with me...
 	public static void main(String[] args) {
 		System.out.println("  ______");
 		System.out.println(" /      \\");
