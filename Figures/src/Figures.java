@@ -1,6 +1,7 @@
+// Even better job sir
 // GOOD JOB SIR! 
 // Todd figure this out!
-// This is on 2nd line, yes?
+// This is on 2nd line, yes? 
 // Test 5
 public class Figures {
 	
