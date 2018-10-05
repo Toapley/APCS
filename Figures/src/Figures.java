@@ -9,6 +9,7 @@ public class Figures {
 	// Test 789
 	public static void main(String[] args) {
 		System.out.println("  ______");
+		// Test 10
 		System.out.println(" /      \\");
 		System.out.println("/        \\");
 		System.out.println("\\        /");
