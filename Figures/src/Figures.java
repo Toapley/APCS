@@ -27,7 +27,7 @@ public class Figures {
 		System.out.println("  ______");
 		System.out.println(" /      \\");
 		System.out.println("/        \\");
-		System.out.println("|  STOP  |");
+		System.out.println("|  STOPP  |");
 		System.out.println("\\        /");
 		System.out.println(" \\______/");
 		System.out.println();
