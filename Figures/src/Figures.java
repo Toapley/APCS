@@ -7,7 +7,8 @@ public class Figures {
 	
 	// TEst 6
 	/* TODO: Use procedural decomposition to create structure and
-	 * eliminate redundancy   
+	 * eliminate redundancy  
+	 * I added this line 
 	 */
 	// Test 12345
 	// Either one is fine with me...
