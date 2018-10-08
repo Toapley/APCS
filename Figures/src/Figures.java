@@ -10,6 +10,7 @@ public class Figures {
 	 * eliminate redundancy  
 	 * I added this line 
 	 * I added this line too
+	 * One more time
 	 */
 	// Test 12345 
 	// Either one is fine with me...
