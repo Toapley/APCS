@@ -37,5 +37,5 @@ public class Figures {
 		System.out.println("/        \\");
 		System.out.println("+--------+");
 	}
-	
+	// This comment was added later....
 }
