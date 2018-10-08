@@ -9,8 +9,9 @@ public class Figures {
 	/* TODO: Use procedural decomposition to create structure and
 	 * eliminate redundancy  
 	 * I added this line 
+	 * I added this line too
 	 */
-	// Test 12345
+	// Test 12345 
 	// Either one is fine with me...
 	public static void main(String[] args) {
 		System.out.println("  ______");
