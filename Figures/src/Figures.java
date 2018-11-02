@@ -12,31 +12,15 @@ public class Figures {
 	 * I added this line too
 	 * One more time
 	 */
+	public static final int TOTAL_ROWS = 5;
 	// Test 12345 
 	// Either one is fine with me...
+	
+
 	public static void main(String[] args) {
-		System.out.println("  ______");
-		// Test 11
-		System.out.println(" /      \\");
-		System.out.println("/        \\");
-		System.out.println("\\        /");
-		System.out.println(" \\______/");
-		System.out.println();
-		System.out.println("\\        /");
-		System.out.println(" \\______/");
-		System.out.println("+--------+");
-		System.out.println();
-		System.out.println("  ______");
-		System.out.println(" /      \\");
-		System.out.println("/        \\");
-		System.out.println("|  STOPP  |");
-		System.out.println("\\        /");
-		System.out.println(" \\______/");
-		System.out.println();
-		System.out.println("  ______");
-		System.out.println(" /      \\");
-		System.out.println("/        \\");
-		System.out.println("+--------+");
+		System.out.println( (int) (Math.random() * (1 - -1 + 1) -1));
+				
 	}
 	// This comment was added later....
+	// Yikes
 }

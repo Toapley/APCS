@@ -20,6 +20,7 @@ public class BitBucketHelper {
 				{"apcs-fwang","s-fwang/apcs-fwang.git"},
 				{"apcs-ghaynes","s-ghaynes/apcs-ghaynes.git"},
 				{"apcs-golson","GarrettOlson/apcs-golson.git"},
+				{"apcs-hbrophy","s-hbrophy/apcs-hbrophy.git"},
 				{"apcs-hnadeem","Shadragon99/apcs-hnadeem.git"},
 				{"apcs-isidorenko","isidorenko-lwsd/apcs-isidorenko.git"},
 				{"apcs-jcando","jamessscandooo/apcs-jcando.git"},
@@ -48,6 +49,7 @@ public class BitBucketHelper {
 		
 		writeCloneFile("C:\\Users\\Todd\\Documents\\AP\\ClassRepositories\\", "C:\\Users\\Todd\\Downloads\\clonerepos.bat",sourcePerson, data);
 		writeCheckinFile("C:\\Users\\Todd\\Documents\\AP\\ClassRepositories\\","C:\\Users\\Todd\\Downloads\\checkin.bat", data);
+		writePullFile("C:\\Users\\Todd\\Documents\\AP\\ClassRepositories\\","C:\\Users\\Todd\\Downloads\\sync.bat", data);
 		
 				
 	
@@ -95,6 +97,28 @@ public class BitBucketHelper {
 		sw.println("@echo Usage: %0 CheckinMessage");
 		sw.println("exit /B 1");
 		
+		sw.close();				
+		
+	}
+	
+	public static void writePullFile(String rootFolder, String checkinFile, String data[][]) throws IOException {
+		
+		PrintWriter  sw = new PrintWriter(checkinFile);
+		
+		
+		// Batch file is expected to be run at the parent root of all the students repos
+
+		// Write out string for cloning each repo locally.
+		for(String[] student : data) {
+			// Move to the repo
+			sw.println("cd " + student[0]);
+			// Pull down
+			sw.println("git pull");
+
+			// Go back a directory.
+			sw.println("cd ..");			
+		}
+				
 		sw.close();				
 		
 	}
