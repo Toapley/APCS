@@ -6,9 +6,9 @@ public class mainCode {
 						
 		String[] period1 = {"Trixie", "Susan", "Annika", "Connor", "Hayden", "James", "John", "Jenna", "Shira", "Jarec", "Gavin", "Maggie", "Alyssa", "Harris", "Garrett", "Faraz", "Pranathi", "Brandon", "Ajay", "Casey", "Fiona", "Tianyi", "Ellen"};
 		String[] period2 = {"Bryce", "Xavier", "Andreea", "Mark", "Nathan", "Sean", "Ivan", "Sanjana", "Melvin", "Spencer", "Tyler"};
-		String[] period3 = {"Anna", "Dylan", "Jake", "Jaron","Cate","Landon","Koji","Adnan","Michaela","James","Andrey","Trotsky","Sim","Joshua","Oliver","Morgan","Grant","Kokoa","Calin","Simon","Daniel","David","Cameron","Drew","Caden","Oscar","Grayson","Afrah", "Nate", "Sophia"};
+		String[] period3 = {"Anna", "Dylan", "Jake", "Jaron","Cate","Landon","Koji","Michaela","James","Andrey","Trotsky","Sim","Joshua","Oliver","Morgan","Grant","Kokoa","Calin","Simon","Daniel","David","Cameron","Drew","Caden","Oscar","Grayson","Afrah", "Nate", "Sophia"};
 		String[] period4 = {"Aidan A", "Tyler", "Terence", "Sadie", "Adrian", "Mitchell", "Natalie", "Taylor", "Thomas", "John", "Landon", "Ann", "Luc", "Dovovan H", "Kenny", "Julian", "Sonya", "Kelson", "Nikita", "Emily", "Donovan L", "Mauricio", "Dora", "Danny", "Aiden S", "Harrison", "Gloria", "Indigo", "Kiara", "Amara", "Ayden R"};
-		sortClass(period2,3);	
+		sortClass(period3,1);	
 		
 		
 	}
