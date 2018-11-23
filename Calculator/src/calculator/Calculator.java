@@ -25,7 +25,7 @@ public class Calculator
     { 
         // TODO: Implement this function to produce the solution to the input    
         
-        return "4";
+        return "";
     }
 
     
