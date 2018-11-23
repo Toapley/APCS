@@ -23,7 +23,7 @@ public class Calculator
      */
     public static String produceAnswer(String input)
     { 
-        // TODO: Implement this function to produce the solution to the input    
+        // TODO: Implement this function to produce the solution to the input.    
         
         return "";
     }
