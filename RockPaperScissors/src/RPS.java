@@ -17,6 +17,7 @@ public class RPS {
 			if (!continuePlaying(console)) break;
 							
 			roundNum++;
+			System.out.println("----------------------------");
 		}
 		
 		System.out.println("Thank you for playing!");
@@ -34,7 +35,7 @@ public class RPS {
 			
 			if (input.equals("YES") || input.equals("NO")) break;
 			
-			System.out.println("DUDE!  Enter yes or no:");				
+			System.out.println("DUDE!  Bad input.");				
 		}
 		
 		return input.equals("YES");
@@ -50,7 +51,7 @@ public class RPS {
 			
 			if (input.equals("ROCK") || input.equals("PAPER") || input.equals("SCISSORS")) break;
 			
-			System.out.println("DUDE!  Enter rock, paper, or scissors");				
+			System.out.println("DUDE!  Bad input.");				
 		}
 		
 		return input;
