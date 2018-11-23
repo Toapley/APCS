@@ -4,7 +4,7 @@ public class BitBucketHelper {
 
 	public static void main(String[] args) throws IOException {
 
-		// Data string		
+		// Student data
 		String data[][] = { 
 				{"apcs-aalonzo","alonzoannika/apcs-aalonzo.git"},
 				{"apcs-aghizila","andreeeeea/apcs-aghizila.git"},
@@ -55,6 +55,7 @@ public class BitBucketHelper {
 	
 	}
 
+	// Writes a batch file for cloning repos 
 	public static void writeCloneFile(String rootFolder, String cloneFile, String sourcePerson, String data[][]) throws IOException {
 		
 		PrintWriter  sw = new PrintWriter(cloneFile);
@@ -72,6 +73,7 @@ public class BitBucketHelper {
 		
 	}
 	
+	// Writes file for staging/pushing all changes to all the various repos.
 	public static void writeCheckinFile(String rootFolder, String checkinFile, String data[][]) throws IOException {
 		
 		PrintWriter  sw = new PrintWriter(checkinFile);
@@ -101,6 +103,7 @@ public class BitBucketHelper {
 		
 	}
 	
+	// Writes a file for pulling (syncing) all repos
 	public static void writePullFile(String rootFolder, String checkinFile, String data[][]) throws IOException {
 		
 		PrintWriter  sw = new PrintWriter(checkinFile);
