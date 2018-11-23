@@ -8,7 +8,7 @@ import org.junit.Test;
     
 To run these tests, just click somewhere inside this file (but NOT on the name of the test case!!), 
 and click the Play button. The results will appear on the left, under JUnit tab.  Your code should pass all the tests
-before submitting Checkpoint 1.
+before submitting Checkpoint 1..
 
 Stats should say: Runs: 12/12     Errors: 0       Failures: 0
  */
