@@ -1,11 +1,41 @@
 package calculator;
+import java.util.*;
 
 public class Calculator 
 {
     public static void main(String[] args) 
     {
-        // TODO: Read the input from the user and call produceAnswer with an equation
 
+    	Scanner console = new Scanner(System.in);
+    	while (true) {
+    		System.out.println("Enter an expression");
+    		String s = console.nextLine();
+    		
+    		if (s.toUpperCase().equals("Q")) break;
+    		
+    		System.out.println(produceAnswer(s));
+    	}
+    
+    	console.close();
+    	System.out.println("all done");
+    }
+    
+    public  static String getFirstWord(String input) {
+    	
+    	int i = input.indexOf(' ');
+    	
+    	if (i == -1) return input;
+    	return input.substring(0,i);
+    	
+    	
+    }
+    
+    public  static String skipFirstWord(String input) {
+    	
+    	int i = input.indexOf(' ');
+    	
+    	if (i == -1) return "";
+    	return input.substring(i+1);
     }
        
     /** 
@@ -22,10 +52,13 @@ public class Calculator
      * @return          the result of the arithmetic expression or an error message
      */
     public static String produceAnswer(String input)
-    { 
-        // TODO: Implement this function to produce the solution to the input.    
-        
-        return "";
+    {        
+    	String w="";
+    	while(input.length() > 0) {
+    		w = getFirstWord(input);
+    		input = skipFirstWord(input);
+    	}    	
+        return w;
     }
 
     
