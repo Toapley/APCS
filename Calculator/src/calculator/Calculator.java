@@ -22,18 +22,15 @@ public class Calculator
     
     public  static String getFirstWord(String input) {
     	
-    	int i = input.indexOf(' ');
-    	
+    	int i = input.indexOf(' ');    	
     	if (i == -1) return input;
     	return input.substring(0,i);
     	
     	
     }
     
-    public  static String skipFirstWord(String input) {
-    	
-    	int i = input.indexOf(' ');
-    	
+    public  static String skipFirstWord(String input) {    	
+    	int i = input.indexOf(' ');    	
     	if (i == -1) return "";
     	return input.substring(i+1);
     }
@@ -52,17 +49,48 @@ public class Calculator
      * @return          the result of the arithmetic expression or an error message
      */
     public static String produceAnswer(String input)
-    {        
-    	String w="";
-    	while(input.length() > 0) {
-    		w = getFirstWord(input);
-    		input = skipFirstWord(input);
-    	}    	
-        return w;
+    {
+    	
+    	String operand1, operand2, operator;
+    	
+    	input = input.trim();        	    	
+    	operand1 = getFirstWord(input);
+    	input = skipFirstWord(input);
+    	
+    	if (input.length() == 0) return operand1; // Was just a single # or blank.
+    	
+    	operator = getFirstWord(input);
+    	input = skipFirstWord(input);
+    	operand2 = getFirstWord(input);
+    	
+    	input = computeValue(operand1, operator, operand2);    	    	
+    	return input;
+
     }
 
     
-    /**
+    private static String computeValue(String operand1, String operator, String operand2) {
+    	int op1 = Integer.parseInt(operand1);
+    	int op2 = Integer.parseInt(operand2);
+    	
+    	int ret;
+    	
+		if (operator.equals("+"))
+			ret = op1 + op2;
+		else if (operator.equals("-"))
+			ret = op1 - op2;
+		else if (operator.equals("*"))
+			ret = op1 * op2;
+		else if (operator.equals("/"))
+			ret = op1 / op2;
+		else 
+			return "INVALID OPERATOR: " + operator;
+		
+		return Integer.toString(ret);
+				
+	}
+
+	/**
      * You may find this function useful in determining if a string value is a valid integer or not. If you call Integer.parseInt()
      * on a string that is not a valid integer, a NumberFormatException will be thrown and your program will terminate. In order to 
      * not have your program terminate on invalid integers, call this function to determine if the string is a valid integer before 
