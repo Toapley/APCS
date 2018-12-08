@@ -25,8 +25,14 @@ public class Main
     }
     
     public static int maxWordLength(String[] list) {
-    	return 1;
+    	int max = Integer.MIN_VALUE;
+    	for(int i = 0; i<list.length; i++) {
+    		if (list[0].length() > max) 
+    			max = list[0].length();
+    	}
+    	return max;
     }
+    
     
     public static String[] splitString(String sentence) {
     	return new String[5];
