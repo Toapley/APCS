@@ -53,21 +53,46 @@ public class Calculator
     	
     	String operand1, operand2, operator;
     	
-    	input = input.trim();        	    	
-    	operand1 = getFirstWord(input);
+    	input = input.trim();  
+    	if (input.length() == 0 ) return "";
+    	
+    	operand1 = getFirstWord(input);    	
+    	if (!isValidNumber(operand1)) return "<ERROR> Invalid value: " + operand1;
+    	
     	input = skipFirstWord(input);
     	
     	if (input.length() == 0) return operand1; // Was just a single # or blank.
     	
-    	operator = getFirstWord(input);
+    	operator = getFirstWord(input);  
+    	if(!isValidOperator(operator)) return "<ERROR> Invalid operator encountered: " + operator;
+    		
     	input = skipFirstWord(input);
-    	operand2 = getFirstWord(input);
+    	if (input.length() == 0) return "<ERROR> Invalid expression format.";
     	
-    	input = computeValue(operand1, operator, operand2);    	    	
+    	
+    	operand2 = getFirstWord(input);    	
+    	if (!isValidNumber(operand2)) return "<ERROR> Invalid value: " + operand2;    	
+    	
+    	input = computeValue(operand1, operator, operand2);  
+    	if (input.indexOf("<ERROR>") > -1) return input;
+    	
     	return input;
 
     }
 
+    
+    private static boolean isValidOperator(String operator) {
+		if (operator.equals("+"))
+			return true;
+		else if (operator.equals("-"))
+			return true;
+		else if (operator.equals("*"))
+			return true;
+		else if (operator.equals("/"))
+			return true;
+		else 
+			return false;
+    }
     
     private static String computeValue(String operand1, String operator, String operand2) {
     	int op1 = Integer.parseInt(operand1);
@@ -82,9 +107,14 @@ public class Calculator
 		else if (operator.equals("*"))
 			ret = op1 * op2;
 		else if (operator.equals("/"))
-			ret = op1 / op2;
+			if (op2 == 0) 
+				return "<ERROR> Cannot divide by zero.";
+			else
+				ret = op1 / op2;				
 		else 
-			return "INVALID OPERATOR: " + operator;
+			return "<ERROR> Invalid operator encountered: " + operator;
+		
+		
 		
 		return Integer.toString(ret);
 				
