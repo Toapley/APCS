@@ -2,6 +2,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+// Version #2 of unit tests
+// Contact the teacher if any of these tests are not correct.
 class DataTransformTests {
 
 	@Test
@@ -17,7 +19,7 @@ class DataTransformTests {
 	}
 
 	@Test
-	void testwordLengthsTallyHandout2() {
+	void testsplitStringHandout2() {
 
 		// This is from the handout.
 		String input = Main.TEXT_2;
@@ -35,7 +37,7 @@ class DataTransformTests {
 
 		// This is from the handout.
 		String input = Main.TEXT_1;
-		String expected[] = {"Star","Wars","Episode","VII","The","Force","Awakens"};
+		String expected[] = {"Star","Wars:","Episode","VII","The","Force","Awakens"};
 		
 		// Use assertEquals to compare arrays
 		assertArrayEquals(expected, Main.splitString(input) );
@@ -43,7 +45,7 @@ class DataTransformTests {
 	}
 	
 	@Test
-	void testSplitStringHandout() {
+	void testWordLengthsTallyHandout() {
 
 		// This is from the handout.
 		String input[] = Main.TEXT_LIST;
@@ -130,6 +132,8 @@ class DataTransformTests {
 	@Test
 	public void testSplitString_extraSpaces() {
 		String[] expected = { "a", "b", "c" };
+		//Note:  if this test is failing for you, try adding some .trim calls
+		//in your main logic to get rid of extra spaces.
 		assertArrayEquals(expected, Main.splitString(" a  b   c   "));
 	}
 
@@ -183,7 +187,7 @@ class DataTransformTests {
 		String FOUR = "abc, defg";
 		String SIX = "abcde!";
 		String[] sentences = { ONE, TWO, FOUR, SIX };
-		int expected[] = {0,4,3,2,1};
+		int expected[] = {0,4,3,0,2,0,1};
 		assertArrayEquals(expected, Main.wordLengthsTally(sentences));
 
 	}
