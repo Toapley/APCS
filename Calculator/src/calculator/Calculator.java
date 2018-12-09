@@ -56,27 +56,32 @@ public class Calculator
     	input = input.trim();  
     	if (input.length() == 0 ) return "";
     	
+    	// Get first token    	
     	operand1 = getFirstWord(input);    	
     	if (!isValidNumber(operand1)) return "<ERROR> Invalid value: " + operand1;
     	
-    	input = skipFirstWord(input);
-    	
-    	if (input.length() == 0) return operand1; // Was just a single # or blank.
-    	
-    	operator = getFirstWord(input);  
-    	if(!isValidOperator(operator)) return "<ERROR> Invalid operator encountered: " + operator;
+    	// Now loop and get next two tokens and condense
+    	while(input.length() != 0) {
     		
-    	input = skipFirstWord(input);
-    	if (input.length() == 0) return "<ERROR> Invalid expression format.";
+        	input = skipFirstWord(input);        	
+        	if (input.length() == 0) return operand1; // We're done
+        	
+        	operator = getFirstWord(input);  // There should be an operator here
+        	if(!isValidOperator(operator)) return "<ERROR> Invalid operator encountered: " + operator;
+        		
+        	input = skipFirstWord(input); // There should be an operand here.
+        	if (input.length() == 0) return "<ERROR> Invalid expression format.";
+        	        	
+        	operand2 = getFirstWord(input);    	
+        	if (!isValidNumber(operand2)) return "<ERROR> Invalid value: " + operand2;    	
+        	   
+        	// Condense everything
+        	operand1 = computeValue(operand1, operator, operand2);  
+        	if (operand1.indexOf("<ERROR>") > -1) return operand1;
+    		
+    	}
     	
-    	
-    	operand2 = getFirstWord(input);    	
-    	if (!isValidNumber(operand2)) return "<ERROR> Invalid value: " + operand2;    	
-    	
-    	input = computeValue(operand1, operator, operand2);  
-    	if (input.indexOf("<ERROR>") > -1) return input;
-    	
-    	return input;
+    	return operand1;
 
     }
 
