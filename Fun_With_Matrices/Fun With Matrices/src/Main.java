@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class Main
 {
@@ -14,7 +15,24 @@ public class Main
 
     public static void main(String[] args)
     {
-//
+    	
+    	//TODO: write code to test out your printmatrix method here!
+    	int a[][] = MATRIX_1;
+    	System.out.println(Arrays.deepToString(a));
+    	shiftUp(a);
+    	System.out.println(Arrays.deepToString(a));
     }
 
+    public static void shiftUp(int[][] matrix) {
+    	
+    	//Store top
+    	int[] firstrow = matrix[0];
+    	for(int i = 1; i<matrix.length;i++) {
+    		matrix[i-1] = matrix[i];    		
+    	}
+    	matrix[matrix.length -1] = firstrow;
+    	    	
+    }
+    
+    
 }

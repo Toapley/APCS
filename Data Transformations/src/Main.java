@@ -49,15 +49,6 @@ public class Main {
 		return false;
 	}
 
-	public static void main(String[] args) {
-		/*
-		 * There's no need to implement anything in main for this assignment You can use
-		 * the unit test to validate your work
-		 */
-		
-		System.out.println(Arrays.toString(Main.generateNGrams("a b c", 2)));
-
-	}
 
 	public static int maxWordLength(String[] list) {
 		int max = Integer.MIN_VALUE;
@@ -142,7 +133,7 @@ public class Main {
 		
 		String tmp[] = new String [0];
 
-		for (int i = 1; i<= size; i++)
+		for (int i = size ; i>=1;i--)
 			tmp = generateSpecificGrams(words, tmp,i);	
 		
 		System.out.println("out array: " + Arrays.toString(tmp));
@@ -152,23 +143,33 @@ public class Main {
 		return tmp;
 	}
 	
+	public static void main(String[] args) {
+		/*
+		 * There's no need to implement anything in main for this assignment You can use
+		 * the unit test to validate your work
+		 */
+		
+		System.out.println(Arrays.toString(Main.generateNGrams("a b c", 2)));
+
+	}
+	
+	
 	private static String[] generateSpecificGrams(String[] words, String arrayToAdd[], int gramSize) {
 		
-		int idx = 0;
 		
-		while (idx < words.length) {
+		for(int idx = 0; idx<words.length;idx++) {
 			
 			String s = words[idx];
-			idx++;
-			for(int j=2; j<=gramSize && idx < words.length;j++) {
-				s += " " + words[idx + j - 2];
-				idx++;
+			boolean flag = false;
+			for(int j=2; j<=gramSize && idx + j -1 < words.length;j++) {
+				s += " " + words[idx + j -1];
+				if (j == gramSize) flag = true;
+			}			
 			
-			}
-			
-			arrayToAdd = addToArray(arrayToAdd, s);
-			
+			if (flag || gramSize == 1) arrayToAdd = addToArray(arrayToAdd, s);
 		}
+		
+		
 		
 		return arrayToAdd;
 		

@@ -191,21 +191,31 @@ class DataTransformTests {
 		assertArrayEquals(expected, Main.wordLengthsTally(sentences));
 
 	}
+	
+	@Test
+	public void testGenerateNGrams_extraCreditExample() {
+		String[] expected1 = {"I", "really", "enjoyed", "reading", "this", "book"};
+		assertArrayEquals(expected1, Main.generateNGrams("I really enjoyed reading this book", 1));
+		
+		String[] expected2 = {"I really", "really enjoyed", "enjoyed reading", "reading this", "this book", "I", "really", "enjoyed", "reading", "this", "book"};
+		assertArrayEquals(expected2, Main.generateNGrams("I really enjoyed reading this book", 2));
+		
+        String[] expected3 = {"I really enjoyed", "really enjoyed reading", "enjoyed reading this",
+        		"reading this book", "I really", "really enjoyed", "enjoyed reading",
+        		"reading this", "this book", "I", "really", "enjoyed", "reading",
+        		"this", "book"};
+
+		assertArrayEquals(expected3, Main.generateNGrams("I really enjoyed reading this book", 3));
+	}	
 
 	@Test
-	public void testGenerateNGrams_extraCredit_() {
+	public void testGenerateNGrams_extraCredit2() {
 		String[] expected1 = { "a", "b", "c" };
 		assertArrayEquals(expected1, Main.generateNGrams("a b c", 1));
-		String[] expected2 = { "a", "b", "c", "a b", "b c" };
+		String[] expected2 = {"a b", "b c", "a", "b", "c"};
 		assertArrayEquals(expected2, Main.generateNGrams("a b c", 2));
-		String[] expected3 = { "a", "b", "c", "a b", "b c", "c d", "a b c", "b c d", "a b c d" };
+		String[] expected3 = { "a b c d", "a b c", "b c d", "a b", "b c", "c d", "a","b","c","d" };
 		assertArrayEquals(expected3, Main.generateNGrams("a b c d", 4));
-	}
-
-	@Test
-	public void testGenerateNGrams_extraCredit_limitWindowSize() {
-		String[] expected1 = { "a", "b", "c", "a b", "b c", "a b c" };
-		assertArrayEquals(expected1, Main.generateNGrams("a b c", 100));
 	}
 
 	@Test
