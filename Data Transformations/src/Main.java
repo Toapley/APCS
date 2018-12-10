@@ -133,12 +133,8 @@ public class Main {
 		
 		String tmp[] = new String [0];
 
-		for (int i = size ; i>=1;i--)
+		for (int i = 1 ; i<=size;i++)
 			tmp = generateSpecificGrams(words, tmp,i);	
-		
-		System.out.println("out array: " + Arrays.toString(tmp));
-		
-
 						
 		return tmp;
 	}

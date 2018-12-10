@@ -2,7 +2,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-// Version #3 of unit tests
+// Version #4 of unit tests
 // Contact the teacher if any of these tests are not correct.
 class DataTransformTests {
 
@@ -197,13 +197,13 @@ class DataTransformTests {
 		String[] expected1 = {"I", "really", "enjoyed", "reading", "this", "book"};
 		assertArrayEquals(expected1, Main.generateNGrams("I really enjoyed reading this book", 1));
 		
-		String[] expected2 = {"I really", "really enjoyed", "enjoyed reading", "reading this", "this book", "I", "really", "enjoyed", "reading", "this", "book"};
+		String[] expected2 = {"I", "really", "enjoyed", "reading", "this", "book", "I really", "really enjoyed", "enjoyed reading", "reading this", "this book"};
 		assertArrayEquals(expected2, Main.generateNGrams("I really enjoyed reading this book", 2));
 		
-        String[] expected3 = {"I really enjoyed", "really enjoyed reading", "enjoyed reading this",
-        		"reading this book", "I really", "really enjoyed", "enjoyed reading",
-        		"reading this", "this book", "I", "really", "enjoyed", "reading",
-        		"this", "book"};
+        String[] expected3 = {"I", "really", "enjoyed", "reading",
+        		"this", "book", "I really", "really enjoyed", "enjoyed reading",
+        		"reading this", "this book", "I really enjoyed", "really enjoyed reading", "enjoyed reading this",
+        		"reading this book" };
 
 		assertArrayEquals(expected3, Main.generateNGrams("I really enjoyed reading this book", 3));
 	}	
@@ -212,9 +212,9 @@ class DataTransformTests {
 	public void testGenerateNGrams_extraCredit2() {
 		String[] expected1 = { "a", "b", "c" };
 		assertArrayEquals(expected1, Main.generateNGrams("a b c", 1));
-		String[] expected2 = {"a b", "b c", "a", "b", "c"};
+		String[] expected2 = {"a", "b", "c", "a b", "b c"};
 		assertArrayEquals(expected2, Main.generateNGrams("a b c", 2));
-		String[] expected3 = { "a b c d", "a b c", "b c d", "a b", "b c", "c d", "a","b","c","d" };
+		String[] expected3 = { "a","b","c","d", "a b", "b c", "c d" , "a b c", "b c d", "a b c d" };
 		assertArrayEquals(expected3, Main.generateNGrams("a b c d", 4));
 	}
 
