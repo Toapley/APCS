@@ -87,7 +87,7 @@ public class BitBucketHelper {
 			// Move to the repo
 			sw.println("cd " + student[0]);
 			// Stage any files
-			sw.println("git add -u");
+			sw.println("git add -A");	//I think -A works better than -u
 			// Commit changes w/ message
 			sw.println("git commit -m %1");
 			sw.println("git push origin master");
