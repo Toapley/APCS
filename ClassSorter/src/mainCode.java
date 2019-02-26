@@ -4,11 +4,11 @@ public class mainCode {
 
 	public static void main(String[] args) {
 						
-		String[] period1 = {"Trixie", "Susan", "Annika", "Connor", "Hayden", "James", "John", "Jenna", "Shira", "Jarec", "Gavin", "Maggie", "Alyssa", "Harris", "Garrett", "Faraz", "Pranathi", "Brandon", "Ajay", "Casey", "Fiona", "Tianyi", "Ellen"};
-		String[] period2 = {"Bryce", "Xavier", "Andreea", "Mark", "Nathan", "Sean", "Ivan", "Sanjana", "Melvin", "Spencer", "Tyler"};
+		String[] period1 = {"Trixie", "Annika", "Hayden", "James","Jenna", "Shira", "Jarec", "Gavin", "Maggie", "Alyssa", "Harris", "Faraz", "Pranathi", "Brandon", "Ajay", "Casey", "Fiona"};
+		String[] period2 = {"Bryce", "Xavier", "Andreea", "Mark", "Nathan", "Sean", "Ivan", "Melvin", "Spencer", "Tyler"};
 		// String[] period3 = {"Anna", "Dylan", "Jake", "Jaron","Cate","Landon","Koji","Michaela","James","Andrey","Trotsky","Sim","Joshua","Oliver","Morgan","Grant","Kokoa","Calin","Simon","Daniel","David","Cameron","Drew","Caden","Oscar","Grayson","Afrah", "Nate", "Sophia"};
 		String[] period4 = {"Brin","Conner","Jacob","Luc","Ryan","Julian","Shreyas","Ethan K","Nikita","Angela","Michael","Ahava","Laine","Erik","Nico","Thomas","Christian","Gloria","Indigo","Owen","Joseph","Javeria","Riley","Inayah","Ethan H","Evelyn","Kayla","Joshua","Sufyan","Charles"};
-		sortClass(period4,1);	
+		sortClass(period2,3);	
 		
 		
 	}
@@ -51,8 +51,8 @@ public class mainCode {
 		// Print out the groups
 		int i=1;
 		for (ArrayList<String>  grp : l) {
-			System.out.println( grp.toString());
-			//System.out.println("Group " + i + ": " + grp.toString());
+			//System.out.println( grp.toString());
+			System.out.println("Group " + i + ": " + grp.toString());
 			i++;
 		}
 				

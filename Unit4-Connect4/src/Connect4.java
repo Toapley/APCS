@@ -53,6 +53,7 @@ public class Connect4 {
 		return false;
 	}
 	
+	/*
 	private boolean checkRows(char symbol) {
 
 		// For each row...
@@ -72,6 +73,55 @@ public class Connect4 {
 		}
 		return false;
 	}
+	*/
+	
+	private boolean checkRows(char symbol) {
+
+		// For each row...
+		for (int i = 0; i<grid.length;i++) {
+	
+			for (int j = 0; j<grid[i].length;j++) {
+				
+				// Check for runs
+				if(runLength(j, grid[i],symbol) >= 4) return true;
+				
+			}
+			
+		}
+		return false;
+	}
+
+	private boolean checkUpDiag(char symbol) {
+
+		
+		// For each row...
+		for (int i = 0; i<grid.length;i++) {
+	
+			for (int j = 0; j<grid[i].length;j++) {
+				
+				// Check for runs
+				if(runLength(j, grid[i],symbol) >= 4) return true;
+				
+			}
+			
+		}
+		return false;
+	}
+
+	
+	private int runLength(int startIndex, char[] row, char symbol) {
+		
+		int i = startIndex + 1;
+		int count = 1;
+		while (i < row.length && row[i] == symbol) {
+			count++;
+			i++;
+		}
+		return count;
+		
+	}
+	
+	
 	
 	private boolean checkCols(char symbol) {
 
