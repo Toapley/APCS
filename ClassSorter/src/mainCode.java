@@ -9,7 +9,7 @@ public class mainCode {
 		// String[] period3 = {"Anna", "Dylan", "Jake", "Jaron","Cate","Landon","Koji","Michaela","James","Andrey","Trotsky","Sim","Joshua","Oliver","Morgan","Grant","Kokoa","Calin","Simon","Daniel","David","Cameron","Drew","Caden","Oscar","Grayson","Afrah", "Nate", "Sophia"};
 		String[] period4 = {"Brin","Conner","Jacob","Luc","Ryan","Julian","Shreyas","Ethan K","Nikita","Angela","Michael","Ahava","Laine","Erik","Nico","Thomas","Christian","Gloria","Indigo","Owen","Joseph","Javeria","Riley","Inayah","Ethan H","Evelyn","Kayla","Joshua","Sufyan","Charles"};
 		sortClass(period2,3);	
-		
+		//Test deal
 		
 	}
 	
