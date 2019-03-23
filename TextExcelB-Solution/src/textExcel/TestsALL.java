@@ -19,14 +19,11 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    TestsALL.A_Checkpoint1.class,
-    TestsALL.A_Checkpoint2.class,
-    TestsALL.A_Checkpoint3.class,
-    TestsALL.A_Final.class,
+    TestsALL.TextExcel_A.class,
     TestsALL.B_Checkpoint1.class,
+    TestsALL.B_Checkpoint2.class,
     TestsALL.B_Final.class,
     TestsALL.ExtraCreditCommandErrors.class,
-    TestsALL.ExtraCreditCommandHistory.class,
     TestsALL.ExtraCreditCircularReferenceErrors.class,
     TestsALL.ExtraCreditEvaluationErrors.class,
     TestsALL.ExtraCreditOperationOrder.class,
@@ -99,7 +96,7 @@ public class TestsALL
         }
     }
 
-    public static class A_Checkpoint1
+    public static class TextExcel_A
     {
         // Tests for checkpoint 1.
         // Pass them all, plus ensure main loop until quit works, for full credit on checkpoint 1.
@@ -111,28 +108,28 @@ public class TestsALL
         {
             grid = new Spreadsheet();
         }
-
+        
         @Test
-        public void testGetRows()
+        public void testGetRows_1pt()
         {
             assertEquals("getRows", 20, grid.getRows());
         }
-
+        
         @Test
-        public void testGetCols()
+        public void testGetCols_1pt()
         {
             assertEquals("getCols", 12, grid.getCols());
         }
-
+        
         @Test
-        public void testProcessCommand()
+        public void testProcessCommand_3pt()
         {
             String str = grid.processCommand("");
             assertEquals("output from empty command", "", str);
         }
-
+        
         @Test
-        public void testLongShortStringCell()
+        public void testLongShortStringCell_6pt()
         {
             SpreadsheetLocation loc = new SpreadsheetLocation("L20");
             assertEquals("SpreadsheetLocation column", loc.getCol(), 11);
@@ -146,30 +143,25 @@ public class TestsALL
             assertEquals("SpreadsheetLocation column", loc.getCol(), 0);
             assertEquals("SpreadsheetLocation row", loc.getRow(), 0);
         }
-
+        
         @Test
-        public void testProcessCommandNonliteralEmpty()
+        public void testProcessCommandNonliteralEmpty_2pt()
         {
             String input = " ".trim();
             String output = grid.processCommand(input);
             assertEquals("output from empty command", "", output);
         }
-    }
 
-    public static class A_Checkpoint2
-    {
-        // Tests for checkpoint 2.
-        // Note these must also pass for all subsequent checkpoints including final project.
-        Grid grid;
-
-        @Before
-        public void initializeGrid()
+        @Test
+        public void testEmptyCell_2pt() throws Exception
         {
-            grid = new Spreadsheet();
+        	Cell c = (Cell) Class.forName("textExcel.EmptyCell").newInstance();
+        	assertEquals("Empty Cell", "          ", c.abbreviatedCellText());       	
+        	assertEquals("Empty Cell - full text", "", c.fullCellText());
         }
 
         @Test
-        public void testEmptyGridCells()
+        public void testEmptyGridCells_1pt()
         {
             for (int i = 0; i < grid.getRows(); i++)
                 for (int j = 0; j < grid.getCols(); j++)
@@ -179,16 +171,16 @@ public class TestsALL
                     assertEquals("empty inspection text", "", cell.fullCellText());
                 }
         }
-
+        
         @Test
-        public void testEmptyGridText()
+        public void testEmptyGridText_halfpt()
         {
             Helper helper = new Helper();
             assertEquals("empty grid", helper.getText(), grid.getGridText());
         }
-
+        
         @Test
-        public void testShortStringCell()
+        public void testShortStringCell_halfpt()
         {
             String hello = "Hello";
             grid.processCommand("A1 = \"" + hello + "\"");
@@ -196,9 +188,9 @@ public class TestsALL
             assertEquals("hello cell text", Helper.format(hello), helloCell.abbreviatedCellText());
             assertEquals("hello inspection text", "\"" + hello + "\"", helloCell.fullCellText());
         }
-
+        
         @Test
-        public void testLongShortStringCell()
+        public void testLongShortStringCell_halfpt()
         {
             String greeting = "Hello, world!";
             grid.processCommand("L20 = \"" + greeting + "\"");
@@ -206,18 +198,18 @@ public class TestsALL
             assertEquals("greeting cell text", Helper.format(greeting), greetingCell.abbreviatedCellText());
             assertEquals("greeting inspection text", "\"" + greeting + "\"", greetingCell.fullCellText());
         }
-
+        
         @Test
-        public void testEmptyStringCell()
+        public void testEmptyStringCell_halfpt()
         {
             grid.processCommand("B2 = \"\"");
             Cell emptyStringCell = grid.getCell(new TestLocation(1,1));
             assertEquals("empty string cell text", Helper.format(""), emptyStringCell.abbreviatedCellText());
             assertEquals("empty string inspection text", "\"\"", emptyStringCell.fullCellText());
         }
-
+        
         @Test
-        public void testDifferentCellTypes()
+        public void testDifferentCellTypes_halfpt()
         {
             grid.processCommand("C11 = \"hi\"");
             Cell stringCell = grid.getCell(new TestLocation(10, 2));
@@ -225,43 +217,61 @@ public class TestsALL
             assertTrue("string cell implementation class must be different from empty cell",
                     !emptyCell.getClass().equals(stringCell.getClass()));
         }
-
+        
         @Test
-        public void testClear()
+        public void testClear_1pt()
         {
+        	Cell cellFirst, cellSecond;
             grid.processCommand("A1 = \"first\"");
             grid.processCommand("D8 = \"second\"");
+            cellFirst = grid.getCell(new TestLocation(0,0));
+            cellSecond = grid.getCell(new TestLocation(7, 3));
+            // Make sure they are there
+            assertEquals("cellFirst inspection text before clear", "\"first\"", cellFirst.fullCellText());
+            assertEquals("cellSecond inspection text before clear", "\"second\"", cellSecond.fullCellText());            
             grid.processCommand("clear");
-            Cell cellFirst = grid.getCell(new TestLocation(0,0));
-            Cell cellSecond = grid.getCell(new TestLocation(7, 3));
+            // Make sure they have been cleared
+            cellFirst = grid.getCell(new TestLocation(0,0));
+            cellSecond = grid.getCell(new TestLocation(7, 3));
             assertEquals("cellFirst inspection text after clear", "", cellFirst.fullCellText());
             assertEquals("cellSecond inspection text after clear", "", cellSecond.fullCellText());
         }
-
+        
         @Test
-        public void testClearLocation()
+        public void testClearLocation_1pt()
         {
+        	Cell cellFirst, cellSecond;
             grid.processCommand("A1 = \"first\"");
             grid.processCommand("D8 = \"second\"");
+            // Make sure they are there
+            cellFirst = grid.getCell(new TestLocation(0,0));
+            cellSecond = grid.getCell(new TestLocation(7, 3));
+            assertEquals("cellFirst inspection text before clear", "\"first\"", cellFirst.fullCellText());
+            assertEquals("cellSecond inspection text before clear", "\"second\"", cellSecond.fullCellText());  
+            
             grid.processCommand("clear A1");
-            Cell cellFirst = grid.getCell(new TestLocation(0,0));
-            Cell cellSecond = grid.getCell(new TestLocation(7, 3));
+            cellFirst = grid.getCell(new TestLocation(0,0));
+            cellSecond = grid.getCell(new TestLocation(7, 3));
             assertEquals("cellFirst inspection text after clear", "", cellFirst.fullCellText());
             assertEquals("cellSecond inspection text after clear", "\"second\"", cellSecond.fullCellText());
         }
-
+        
         @Test
-        public void testProcessCommandInspection()
+        public void testProcessCommandInspection_1pt()
         {
             String empty = grid.processCommand("A1");
             assertEquals("inspection of empty cell", "", empty);
             grid.processCommand("A1 = \"first\"");
             String first = grid.processCommand("A1");
             assertEquals("inspection of string cell", "\"first\"", first);
-        }
 
+            grid.processCommand("H1 = \"This is a big string\"");
+            first = grid.processCommand("H1");
+            assertEquals("inspection of string cell2", "\"This is a big string\"", first);            
+        }
+        
         @Test
-        public void testProcessCommand()
+        public void testProcessCommand_1pt2()
         {
             Helper helper = new Helper();
             String gridOne = grid.processCommand("A1 = \"oNe\"");
@@ -279,9 +289,9 @@ public class TestsALL
             helper.setItem(19, 11, "");
             assertEquals("empty grid", helper.getText(), gridEmpty);
         }
-
+        
         @Test
-        public void testProcessCommandSpecialStrings()
+        public void testProcessCommandSpecialStrings_1pt()
         {
             String stringSpecial1 = "A1 = ( avg A2-A3 )";
             String stringSpecial2 = "A1 = ( 1 * 2 / 1 + 3 - 5 )";
@@ -299,7 +309,7 @@ public class TestsALL
         }
 
         @Test
-        public void testLongStringCellNoSpaces()
+        public void testLongStringCellNoSpaces_halfpt()
         {
             String greeting = "ThisIsALongString";
             grid.processCommand("L2 = \"" + greeting + "\"");
@@ -309,7 +319,7 @@ public class TestsALL
         }
 
         @Test
-        public void testLowerCaseCellAssignment()
+        public void testLowerCaseCellAssignment_halfpt()
         {
             String text = "Cell";
             grid.processCommand("b5 = \"" + text + "\"");
@@ -321,9 +331,9 @@ public class TestsALL
             String processText2 = grid.processCommand("B5");
             assertEquals("processed inspection text 2", "\"" + text + "\"", processText2);
         }
-
+        
         @Test
-        public void testLowerCaseCellProcessInspection()
+        public void testLowerCaseCellProcessInspection_halfpt()
         {
             grid.processCommand("B2 = \"\"");
             String processText = grid.processCommand("b2");
@@ -332,9 +342,9 @@ public class TestsALL
             String processText2 = grid.processCommand("c18");
             assertEquals("processed inspection text 2", "\"3.1410\"", processText2);
         }
-
+        
         @Test
-        public void testMixedCaseClear()
+        public void testMixedCaseClear_1pt()
         {
             grid.processCommand("A1 = \"first\"");
             grid.processCommand("D8 = \"second\"");
@@ -344,9 +354,9 @@ public class TestsALL
             assertEquals("cellFirst inspection text after clear", "", cellFirst.fullCellText());
             assertEquals("cellSecond inspection text after clear", "", cellSecond.fullCellText());
         }
-
+        
         @Test
-        public void textNonliteralClear()
+        public void textNonliteralClear_1pt()
         {
             String clear = " clear ".trim();
             grid.processCommand("A1 = \"first\"");
@@ -361,9 +371,9 @@ public class TestsALL
             String emptyGrid = th.getText();
             assertEquals("empty grid", emptyGrid, finalGrid);
         }
-
+        
         @Test
-        public void testMixedCaseClearLocation()
+        public void testMixedCaseClearLocation_1pt()
         {
             grid.processCommand("A18 = \"first\"");
             grid.processCommand("D8 = \"second\"");
@@ -375,12 +385,12 @@ public class TestsALL
             String processedCleared = grid.processCommand("A18");
             assertEquals("processed inspection after clear", "", processedCleared);
         }
-
+        
         @Test
-        public void testProcessCommandMoreSpecialStrings()
+        public void testProcessCommandMoreSpecialStrings_1pt()
         {
             String[] specialStrings = new String[] { "clear", "(", " = ", "5", "4.3", "12/28/1998", "A1 = ( 1 / 1 )", "A20 = 1/1/2000", "A9 = 4.3", "abcdefgh", "abcdefghi", "abcdefghijk" };
-
+            
             Helper helper = new Helper();
             for (int col = 0; col < specialStrings.length; col++)
             {
@@ -396,32 +406,50 @@ public class TestsALL
             }
             assertEquals("final sheet", helper.getText(), grid.getGridText());
         }
-    }
-
-    public static class A_Checkpoint3
-    {
-        // Tests for checkpoint 3.
-        // Note these must also pass for all subsequent checkpoints including final project.
-        Grid grid;
-
-        @Before
-        public void initializeGrid()
+        
+        
+        @Test
+        public void testAreEmptyCells_halfpt()
         {
-            grid = new Spreadsheet();
+        	grid = new Spreadsheet();
+            for (int i = 0; i < grid.getRows(); i++)
+                for (int j = 0; j < grid.getCols(); j++)
+                {
+                    Cell cell = grid.getCell(new TestLocation(i, j));
+                    assertEquals("Spreadsheet should contain all EmptyCells", cell.getClass().getName(), "textExcel.EmptyCell");
+                }
+        }
+        
+        @Test
+        public void testTextCell_halfpt()
+        {
+            grid.processCommand("C5 = \"hi\"");
+            Cell cell = grid.getCell(new TestLocation(4, 2));
+            assertEquals("Should be of type StringCell", cell.getClass().getName(), "textExcel.TextCell");
         }
 
         @Test
-        public void testPercentCell()
+        public void testPercentCell_1pt()
         {
             String percent = "11.25%";
             grid.processCommand("A1 = " + percent);
-            Cell dateCell = grid.getCell(new TestLocation(0,0));
-            assertEquals("date cell text", "11%", dateCell.abbreviatedCellText().trim());
-            assertEquals("date inspection text", "0.1125", dateCell.fullCellText());
+            Cell percentCell = grid.getCell(new TestLocation(0,0));
+            assertEquals("percent cell text", "11%", percentCell.abbreviatedCellText().trim());
+            assertEquals("percent inspection text", "0.1125", percentCell.fullCellText());
         }
-
+        
         @Test
-        public void testBasicRealCell()
+        public void testPercentCell2_1pt()
+        {
+            String percent = "55%";
+            grid.processCommand("A1 = " + percent);
+            Cell percentCell = grid.getCell(new TestLocation(0,0));
+            assertEquals("percent cell text", "55%", percentCell.abbreviatedCellText().trim());
+            assertEquals("percent inspection text", "0.55", percentCell.fullCellText());
+        }               
+                       
+        @Test
+        public void testBasicRealCell_1pt()
         {
             String real = "3.14";
             grid.processCommand("D18 = " + real);
@@ -429,9 +457,9 @@ public class TestsALL
             assertEquals("real cell text", Helper.format(real), realCell.abbreviatedCellText());
             assertEquals("real inspection text", real, realCell.fullCellText());
         }
-
+        
         @Test
-        public void testMoreRealCells()
+        public void testMoreRealCells_1pt()
         {
             String zero = "0.0";
             grid.processCommand("A1 = " + zero);
@@ -444,9 +472,9 @@ public class TestsALL
             assertEquals("real cell -2", Helper.format(negativeTwo), negativeTwoCell.abbreviatedCellText());
             assertEquals("real inspection -2", negativeTwo, negativeTwoCell.fullCellText());
         }
-
+        
         @Test
-        public void testDifferentCellTypes()
+        public void testDifferentCellTypes_3pt()
         {
             grid.processCommand("H4 = 12.281998%");
             grid.processCommand("G3 = \"5\"");
@@ -465,9 +493,37 @@ public class TestsALL
                 }
             }
         }
+        
+        @Test
+        public void testFormulaAssignment_3pt()
+        {
+            for (int row = 1; row < 11; row++)
+            {
+                for (int col = 1; col < 7; col++)
+                {
+                    String cellName = Character.toString((char)('A' + col)) + (row + 1);
+                    grid.processCommand(cellName + " = 1");
+                }
+            }
+            String formula1 = "( 4 * 5.5 / 2 + 1 - -11.5 )";
+            String formula2 = "( sUm B6-g11 )";
+            String formula3 = "( AvG f8-F9 )";
+            grid.processCommand("K9 = " + formula1);
+            grid.processCommand("J10 = " + formula2);
+            grid.processCommand("I11 = " + formula3);
+            Cell cell1 = grid.getCell(new TestLocation(8, 10));
+            Cell cell2 = grid.getCell(new TestLocation(9, 9));
+            Cell cell3 = grid.getCell(new TestLocation(10, 8));
+            assertEquals("cell length 1", 10, cell1.abbreviatedCellText().length());
+            assertEquals("inspection 1", formula1, cell1.fullCellText());
+            assertEquals("cell length 2", 10, cell2.abbreviatedCellText().length());
+            assertEquals("inspection 2", formula2, cell2.fullCellText());
+            assertEquals("cell length 3", 10, cell3.abbreviatedCellText().length());
+            assertEquals("inspection 3", formula3, cell3.fullCellText());
+        }
 
         @Test
-        public void testProcessCommand()
+        public void testProcessCommand_1pt()
         {
             Helper helper = new Helper();
             String first = grid.processCommand("A1 = 1.021822%");
@@ -485,7 +541,7 @@ public class TestsALL
         }
 
         @Test
-        public void testRealCellFormat()
+        public void testRealCellFormat_2pt()
         {
             // NOTE spec not totally consistent on inspection format, allow anything that parses to within epsilon of as entered
             String[] realsEntered = { "3.00", "-74.05000", "400", "400.0" };
@@ -509,28 +565,28 @@ public class TestsALL
         }
 
         @Test
-        public void testRealCellTruncation()
+        public void testRealCellTruncation_1pt()
         {
             String big = "-9876543212345";
             grid.processCommand("A1 = " + big);
             Cell bigCell = grid.getCell(new TestLocation(0, 0));
             assertEquals("real big cell length", 10, bigCell.abbreviatedCellText().length());
             assertEquals("real big inspection ", Double.parseDouble(big), Double.parseDouble(bigCell.fullCellText()), 1e-6);
-
+            
             String precise = "3.14159265358979";
             grid.processCommand("A2 = " + precise);
             Cell preciseCell = grid.getCell(new TestLocation(1, 0));
             assertEquals("real precise cell length", 10, preciseCell.abbreviatedCellText().length());
             assertEquals("real precise cell", Double.parseDouble(precise), Double.parseDouble(preciseCell.abbreviatedCellText()), 1e-6);
             assertEquals("real precise inspection ", Double.parseDouble(precise), Double.parseDouble(preciseCell.fullCellText()), 1e-6);
-
+            
             String moderate = "123456";
             grid.processCommand("A3 = " + moderate);
             Cell moderateCell = grid.getCell(new TestLocation(2, 0));
             assertEquals("real moderate cell length", 10, moderateCell.abbreviatedCellText().length());
             assertEquals("real moderate cell", moderate + ".0", moderateCell.abbreviatedCellText().trim());
             assertEquals("real moderate inspection", moderate, moderateCell.fullCellText());
-
+            
             String precisePerc = "7.87878%";
             grid.processCommand("A4 = " + precisePerc);
             Cell precisePerCell = grid.getCell(new TestLocation(3, 0));
@@ -538,9 +594,31 @@ public class TestsALL
             assertEquals("real precise percent cell", "7%", precisePerCell.abbreviatedCellText().trim());
             assertEquals("real precise percent inspection", "0.0787878", precisePerCell.fullCellText());
         }        
+        
+        @Test
+        public void testDifferentCellTypeNames_2pt()
+        {
+        	grid.processCommand("F1 = \"-He/ll()o\"");  //Text
+            grid.processCommand("F2 = -5.2%");	   	    //Percent
+            grid.processCommand("f3 = -3.141592654");   //Value
+            grid.processCommand("F4 = 10");   
+            grid.processCommand("F5 = 20");            
+            grid.processCommand("F6 = ( AVG F4-F5 )");  //Formula
+            
+            Cell cell = grid.getCell(new TestLocation(0,5));
+            assertEquals("Text should be TextCell", cell.getClass().getName(), "textExcel.TextCell");
+            cell = grid.getCell(new TestLocation(1,5));
+            assertEquals("% should be PercentCell", cell.getClass().getName(), "textExcel.PercentCell");
+            cell = grid.getCell(new TestLocation(2,5));
+            assertEquals("Value should be ValueCell", cell.getClass().getName(), "textExcel.ValueCell");
+            cell = grid.getCell(new TestLocation(5,5));
+            assertEquals("Formula should be FormulaCell", cell.getClass().getName(), "textExcel.FormulaCell");
+        }
+        
+
     }
 
-    public static class A_Final
+    public static class B_Checkpoint1
     {
         // Additional tests for final project.
         Grid grid;
@@ -601,7 +679,40 @@ public class TestsALL
             assertListContains(contents, "J6,ValueCell,2.888");
             assertListContains(contents, "D10,TextCell,\"ChocolateChocolateChipCrustedCookie\"");
             assertListContains(contents, "L20,ValueCell,0");
+                        
+            assertEquals("Too many lines in .csv file", 6, contents.size() );
         }
+        
+        @Test
+        public void testSaveFormatSimple()
+        {
+            // Generate the saved file
+            grid.processCommand("l1 = \"Mr. Shelton is my favorite teacher\"");    // Text                      
+            grid.processCommand("save TestSaveFormat2.csv");
+
+            // Open the file manually with a scanner to inspect its contents
+            Scanner file;
+            try
+            {
+                file = new Scanner(new File("TestSaveFormat2.csv"));
+            }
+            catch (FileNotFoundException e)
+            {
+                assertEquals("Unable to open TestSaveFormat2.csv: " + e.getMessage(), "0", "1");
+                return;
+            }
+
+            ArrayList<String> contents = new ArrayList<String>();
+            while (file.hasNextLine())
+            {
+                contents.add(file.nextLine());
+            }
+            file.close();
+
+            assertListContains(contents, "L1,TextCell,\"Mr. Shelton is my favorite teacher\"");           
+                        
+            assertEquals("Too many lines in .csv file", 1, contents.size() );
+        }        
 
         @Test
         public void testFileIOSimple()
@@ -611,7 +722,7 @@ public class TestsALL
             // Cells of each type (do formula in separate test, since can't compare
             // sheet texts with formulas until Part B)
             grid.processCommand("A1 = 1.021822%");              // Percent
-            helper.setItem(0, 0, "1%");
+            helper.setItem(0, 0, "1%");                      
             grid.processCommand("A2 = -5");                     // Value
             helper.setItem(1, 0, "-5.0");
             grid.processCommand("K19 = 2.718");                 // Value
@@ -643,6 +754,97 @@ public class TestsALL
 
             assertEquals("grid after save and open", helper.getText(), gridText);
         }
+        
+        @Test
+        public void testFileIOSimpleMore()
+        {
+
+            // Formula case
+            grid.processCommand("A1 = 1");
+            grid.processCommand("A2 = 2");
+            grid.processCommand("A3 = 3");
+            grid.processCommand("A4 = ( AVG A1-A3 )");
+            
+            // Save and clear
+            grid.processCommand("Save TestFileIOSimple2.csv");
+            grid.processCommand("clear");            
+
+            // Verify grid is cleared
+            Cell cell;
+            cell = grid.getCell(new TestLocation(0, 0));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(1, 0));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(2, 0));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(3, 0));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+
+            // Read back in the file, verify sheet looks correct
+            String gridText = grid.processCommand("Open TestFileIOSimple2.csv");
+
+            cell = grid.getCell(new TestLocation(0, 0));
+            assertEquals("cell inspection after open", "1", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(1, 0));
+            assertEquals("cell inspection after open", "2", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(2, 0));
+            assertEquals("cell inspection after open", "3", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(3, 0));
+            assertEquals("cell inspection after open", "( AVG A1-A3 )", cell.fullCellText());
+
+        }
+                
+        @Test
+        public void testMakeSureYouClearedBeforeOpeningAFile()
+        {
+
+            // Formula case
+            grid.processCommand("A1 = 1");
+            grid.processCommand("A2 = 2");
+            grid.processCommand("A3 = 3");
+            grid.processCommand("A4 = ( AVG A1-A3 )");
+            
+            // Save and clear
+            grid.processCommand("Save TestFileIOSimple2.csv");
+            grid.processCommand("clear");            
+
+            // Verify grid is cleared
+            Cell cell;
+            cell = grid.getCell(new TestLocation(0, 0));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(1, 0));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(2, 0));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(3, 0));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+
+            // Read back in the file, verify sheet looks correct
+            // first added random junk that needs to be cleared
+            grid.processCommand("C4 = \"fail .-.\"");
+            grid.processCommand("C5 = \"didn't\"");
+            grid.processCommand("C6 = \"clear cell\"");
+            String gridText = grid.processCommand("Open TestFileIOSimple2.csv");
+
+            //these should be cleared
+            cell = grid.getCell(new TestLocation(3, 2));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(4, 2));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(5, 2));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+            
+            
+            cell = grid.getCell(new TestLocation(0, 0));
+            assertEquals("cell inspection after open", "1", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(1, 0));
+            assertEquals("cell inspection after open", "2", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(2, 0));
+            assertEquals("cell inspection after open", "3", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(3, 0));
+            assertEquals("cell inspection after open", "( AVG A1-A3 )", cell.fullCellText());
+
+        }        
 
         private String getConstantFormulaString(int col)
         {
@@ -740,7 +942,7 @@ public class TestsALL
         }
     }
 
-    public static class B_Checkpoint1
+    public static class B_Checkpoint2
     {
         // Tests for Part B, Checkpoint 1
         // Note these must also pass for all subsequent checkpoints including final project.
@@ -869,6 +1071,22 @@ public class TestsALL
             }
             assertEquals("mixed formula inspection", formula, cell.fullCellText());
         }
+        
+        @Test
+        public void testSimpleMixedWithOrWithoutPrecedenceBig()
+        {
+            // Accept either the left-to-right basic result 0 or the precedence extra credit result 1
+            String formula = "( 1 + 1 + 1 + 1 + 1 - 1 - 1 - 1 - 1 - 1 * 0 * 0 * 0 * 0 * 0 / 1 / 1 / 1 / 1 / 1 )";
+            grid.processCommand("L20 = " + formula);
+            Cell cell = grid.getCell(new TestLocation(19, 11));
+            String text = cell.abbreviatedCellText();
+            assertEquals("length", 10, text.length());
+            String result = text.trim();
+            
+            assertTrue("result " + result + " should be either 0 (left-to-right) or 1 (with precedence)",
+                    result.equals("1.0") || result.equals("0.0"));
+        }
+        
     }
 
     public static class B_Final
@@ -1350,6 +1568,50 @@ public class TestsALL
             assertEquals("updated sum nested", 233.5, resultSum, 1e-6);
             assertEquals("updated avg nested", 29.1875, resultAvg, 1e-6);
         }
+        
+        
+        @Test
+        public void testFileIOSimpleMoreAgain()
+        {
+
+            // Formula case
+            grid.processCommand("A1 = 1");
+            grid.processCommand("A2 = 2");
+            grid.processCommand("A3 = 3");
+            grid.processCommand("A4 = ( AVG A1-A3 )");
+            
+            // Save and clear
+            grid.processCommand("Save TestFileIOSimple2.csv");
+            grid.processCommand("clear");
+            
+
+            // Verify grid is cleared
+            Cell cell;
+            cell = grid.getCell(new TestLocation(0, 0));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(1, 0));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(2, 0));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(3, 0));
+            assertEquals("cell inspection after clear", "", cell.fullCellText());
+
+            // Read back in the file, verify sheet looks correct
+            String gridText = grid.processCommand("Open TestFileIOSimple2.csv");
+
+            cell = grid.getCell(new TestLocation(0, 0));
+            assertEquals("cell inspection after open", "1", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(1, 0));
+            assertEquals("cell inspection after open", "2", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(2, 0));
+            assertEquals("cell inspection after open", "3", cell.fullCellText());
+            cell = grid.getCell(new TestLocation(3, 0));
+            assertEquals("cell inspection after open", "( AVG A1-A3 )", cell.fullCellText());
+            
+            assertEquals("cell evaluation after open", "2.0       ", cell.abbreviatedCellText());            
+            
+        }
+        
     }
 
 
@@ -1443,325 +1705,6 @@ public class TestsALL
             grid.processCommand("clear    A1");
             String after = grid.processCommand("clear");
             assertEquals("end with empty grid", before, after);
-        }
-    }
-
-    public static class ExtraCreditCommandHistory
-    {
-        // Tests for command history extra credit
-        Grid grid;
-
-        @Before
-        public void initializeGrid()
-        {
-            grid = new Spreadsheet();
-        }
-
-        @Test
-        public void testEmptyCommandHistory()
-        {
-            startHistory(3);
-
-            checkHistory(new String[]{});
-
-            stopHistory();
-        }
-
-        @Test
-        public void testPartiallyEmptyCommandHistory()
-        {
-            startHistory(5);
-
-            executeCommands(new String[]
-                    {
-                    "A1 = 5",
-                    "A2 = \"Test\""
-                    });
-
-            checkHistory(new String[]
-                    {
-                    "A2 = \"Test\"",
-                    "A1 = 5"
-                    });
-
-            executeCommands(new String[]
-                    {
-                    "clear A1",
-                    "A3 = 10"
-                    });
-
-            checkHistory(new String[]
-                    {
-                    "A3 = 10",
-                    "clear A1",            		
-                    "A2 = \"Test\"",
-                    "A1 = 5"
-                    });
-
-            stopHistory();   	
-        }
-
-        @Test
-        public void testFullCommandHistory()
-        {
-            startHistory(6);
-
-            executeCommands(new String[]
-                    {
-                    "A1 = 5",
-                    "A2 = \"Test\"",
-                    "clear A1"
-                    });
-
-            checkHistory(new String[]
-                    {
-                    "clear A1",
-                    "A2 = \"Test\"",
-                    "A1 = 5",
-                    });
-
-            executeCommands(new String[]
-                    {
-                    "A1 = 6",
-                    "B1 = 7",
-                    "C1 = 8"
-                    });
-
-            checkHistory(new String[]
-                    {
-                    "C1 = 8",
-                    "B1 = 7",
-                    "A1 = 6",
-                    "clear A1",
-                    "A2 = \"Test\"",
-                    "A1 = 5",
-                    });
-
-            stopHistory();   	
-        }
-
-        @Test
-        public void testOverflowingCommandHistory()
-        {
-            startHistory(4);
-
-            executeCommands(new String[]
-                    {
-                    "A1 = 10",
-                    "A2 = \"Test2\"",
-                    "clear A2"
-                    });
-
-            checkHistory(new String[]
-                    {
-                    "clear A2",
-                    "A2 = \"Test2\"",
-                    "A1 = 10",
-                    });
-
-            executeCommands(new String[]
-                    {
-                    "A1 = 60",
-                    "B1 = 70",
-                    "C1 = 80"
-                    });
-
-            checkHistory(new String[]
-                    {
-                    "C1 = 80",
-                    "B1 = 70",
-                    "A1 = 60",
-                    "clear A2"
-                    });
-
-            executeCommands(new String[]
-                    {
-                    "clear B1",
-                    "clear C1"
-                    });
-
-
-            checkHistory(new String[]
-                    {
-                    "clear C1",
-                    "clear B1",
-                    "C1 = 80",
-                    "B1 = 70"
-                    });
-
-            stopHistory();   	
-        }
-
-        @Test
-        public void testClearHistory()
-        {
-            startHistory(5);
-
-            executeCommands(new String[]
-                    {
-                    "A1 = 8",
-                    "A2 = \"Test\"",
-                    "clear A1",
-                    "clear A2"
-                    });
-
-            checkHistory(new String[]
-                    {
-                    "clear A2",
-                    "clear A1",
-                    "A2 = \"Test\"",
-                    "A1 = 8"			
-                    });
-
-            clearHistory(2);
-
-            checkHistory(new String[]
-                    {
-                    "clear A2",
-                    "clear A1",		
-                    });
-
-            clearHistory(1);
-
-            checkHistory(new String[]
-                    {
-                    "clear A2"		
-                    });
-
-            clearHistory(1);
-
-            checkHistory(new String[] 
-                    {
-                    });
-
-            executeCommands(new String[]
-                    {
-                    "C1 = 8",
-                    "D2 = \"Test\"",
-                    "clear C1",
-                    "clear D2",
-                    "C1 = 20",
-                    "E1 = 40",
-                    "F3 = 60"
-                    });
-
-            checkHistory(new String[] 
-                    {
-                    "F3 = 60",
-                    "E1 = 40",
-                    "C1 = 20",
-                    "clear D2",	
-                    "clear C1"	
-                    });
-
-            clearHistory(3);
-
-            checkHistory(new String[] 
-                    {
-                    "F3 = 60",
-                    "E1 = 40"	
-                    });
-
-            executeCommands(new String[]
-                    {
-                    "A5 = 6",
-                    "A6 = 7",
-                    "A7 = 8",
-                    "A8 = 9"
-                    });
-
-            checkHistory(new String[] 
-                    {
-                    "A8 = 9",
-                    "A7 = 8",
-                    "A6 = 7",
-                    "A5 = 6",
-                    "F3 = 60",
-                    });
-
-            clearHistory(2);
-
-
-            checkHistory(new String[] 
-                    {
-                    "A8 = 9",
-                    "A7 = 8",
-                    "A6 = 7"
-                    });
-
-            clearHistory(5);
-            checkHistory(new String[] 
-                    {
-                    });
-
-            stopHistory();
-        }
-
-        @Test
-        public void testAllOnSameSheet()
-        {
-            testClearHistory();
-
-            grid.processCommand("A1 = 1");
-
-            testEmptyCommandHistory();
-
-            grid.processCommand("B2 = 2");
-
-            testPartiallyEmptyCommandHistory();
-
-            grid.processCommand("C3 = 3");
-
-            testFullCommandHistory();
-
-            grid.processCommand("D4 = 4");
-
-            testOverflowingCommandHistory();
-        }
-
-        private void startHistory(int historySize)
-        {
-            String historyStart = grid.processCommand("history start " + historySize);
-            assertEquals("", historyStart);
-        }
-
-        private void executeCommands(String[] commands)
-        {
-            for (String command : commands)
-            {
-                String output = grid.processCommand(command);
-                if (command.startsWith("history"))
-                {
-                    assertEquals("", output);
-                }
-            }
-        }
-
-        private void checkHistory(String[] expectedHistory)
-        {          	
-            String historyDisplay = grid.processCommand("history display");
-            if (historyDisplay.equals(""))
-            {
-                assertEquals(0, expectedHistory.length);
-            }
-            else
-            {
-                String[] historyCommands = historyDisplay.split("\n");
-
-                assertTrue(Arrays.equals(expectedHistory, historyCommands));
-            }
-        }
-
-        private void clearHistory(int numToClear)
-        {
-            String historyClear = grid.processCommand("history clear " + numToClear);
-            assertEquals("", historyClear);
-        }
-
-        private void stopHistory()
-        {
-            String historyStop = grid.processCommand("history stop");
-            assertEquals("", historyStop);
         }
     }
 
