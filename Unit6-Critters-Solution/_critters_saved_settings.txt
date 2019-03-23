@@ -1,5 +1,5 @@
 #CSE 142 Critters saved settings
-#Fri Feb 08 09:35:24 PST 2019
+#Wed Mar 20 17:35:49 PDT 2019
 Height=50
 Number\ of\ each\ critter=25
 Network\ features=true
@@ -8,6 +8,6 @@ Secure\ tournament\ mode=true
 Bird=true
 Debug\ output=true
 Ant=true
-Hippo=true
 Width=60
+Hippo=true
 Stone=true
