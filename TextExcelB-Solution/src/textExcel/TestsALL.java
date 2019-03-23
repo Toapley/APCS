@@ -1734,6 +1734,38 @@ public class TestsALL
             assertEquals(description, expected, cell.abbreviatedCellText());
             assertEquals("formula", formula, cell.fullCellText());
         }
+        
+        //Author: Arthur Liu
+        @Test
+        public void testCircularReferenceMore()
+        {
+        	//tests circular reference that doesn't reference the original call cell
+            Helper thErrors = new Helper();
+            Helper thOnes = new Helper();
+            for (int col = 0; col < 3; col++)
+            {
+                thErrors.setItem(0,  col, expectedError);
+                thOnes.setItem(0,  col,  expectedOne);
+            }
+            grid.processCommand("A1 = ( B1 )");
+            grid.processCommand("b1 = ( c1 )");
+            try
+            {
+                String gridErrors = grid.processCommand("C1 = ( b1 )");
+                assertEquals("grid with circular reference errors", thErrors.getText(), gridErrors);
+                String gridOnes = grid.processCommand("B1 = 1");
+                assertEquals("grid with ones", thOnes.getText(), gridOnes);
+                assertEvalOK(0, 2, expectedOne, "( b1 )", "noncircular");
+                gridErrors = grid.processCommand("b1 = ( a1 )");
+                assertEquals("second grid with circular reference errors", thErrors.getText(), gridErrors);
+                assertEvalError(0, 2, "( b1 )", "circular");
+            }
+            catch (StackOverflowError e)
+            {
+                fail("Circular reference not handled, caught stack overflow error");
+            }
+        }
+        
 
         @Test
         public void testCircularReference()
