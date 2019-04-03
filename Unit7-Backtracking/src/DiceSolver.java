@@ -3,28 +3,35 @@ import java.util.List;
 
 public class DiceSolver {
 
+	//Add up all the items in the list
+	private static int sumupList(List<Integer> l) {
+		int sum = 0;
+		for(int i : l) sum+=i;
+		return sum;	
+	}
+	
 	/*** 
 	 * @param numDice	- # of dice to use.
-	 * @param sumTotal - What the target sume is.
+	 * @param desiredSum - What the target sume is.
 	 * @return the total number of solutions found...
 	 */
-	public static int dice(int numDice, int sumTotal) {
+	public static int dice(int numDice, int desiredSum) {
 			
-		List<Integer> l = new ArrayList<Integer>();
-		return dice(numDice, sumTotal, 0, l,0);
+		List<Integer> listOfDice = new ArrayList<Integer>();
+		return dice(numDice, desiredSum, listOfDice,0);
 
 	}
 
 	/***
 	 * 
 	 * @param numDice - # of dice to use - This should never change.
-	 * @param sumTotal - What the target sum is - This should never change
+	 * @param desiredSum - What the target sum is - This should never change
 	 * @param currentSum - What the current sum is 
-	 * @param list
-	 * @param currentCount
+	 * @param listOfDice - Dice we're trying
+	 * @param solutionsFound - current count of solutions
 	 * @return
 	 */
-	private static int dice(int numDice, int sumTotal, int currentSum, List<Integer> list, int currentCount) {
+	private static int dice(int numDice, int desiredSum, List<Integer> listOfDice, int solutionsFound) {
 
 		/*
 		 * Your solution should be something like the following:
@@ -37,34 +44,34 @@ public class DiceSolver {
 		 *    return the current count
 		 * } else {
 		 *  	recursive case - try again with *all* possible dice values.
-		 *  
 		 *  } 
 		 *  
 		 */
-		if (currentSum == sumTotal && list.size() == numDice) {
-			System.out.println("A solution: " + list.toString());
-			return currentCount+1;
-		} else if (list.size() > numDice || currentSum > sumTotal) {
-			return currentCount; // no solution
-		} else {	//recurse
+		
+		int currentSum = sumupList(listOfDice);
+		
+		if (currentSum == desiredSum && listOfDice.size() == numDice) {
+			System.out.println("A solution: " + listOfDice.toString());
+			return solutionsFound+1;
+		} else if (listOfDice.size() > numDice || currentSum > desiredSum) {
+			return solutionsFound; 
+		} else {	//General
 			for (int i = 1; i <= 6; i++) {
-			
-				list.add(i);
-				currentCount = dice(numDice, sumTotal, currentSum + i,list,currentCount);
-				list.remove(list.size() -1);				
-						
+				listOfDice.add(i);	//Try this dice
+				solutionsFound = dice(numDice, desiredSum,listOfDice,solutionsFound); // See if it works
+				listOfDice.remove(listOfDice.size() - 1 );	// Remove this dice to try another option			
 			}
-			
 		}
 		
-		return currentCount;
+		return solutionsFound;
 
 	
 	}
+	
 
 	public static void main(String[] args) {
 
-		System.out.println(dice(6,25));
+		System.out.println(dice(3,7));
 
 	}
 }
